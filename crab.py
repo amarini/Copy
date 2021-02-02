@@ -12,6 +12,7 @@ config.JobType.scriptExe='scriptExe.sh'
 config.JobType.pluginName = 'Analysis'
 config.JobType.disableAutomaticOutputCollection = True
 config.JobType.outputFiles = ['nano.root']
+config.JobType.inputFiles = ['copyNano.py','FrameworkJobReport_ok.xml']
 config.section_('Data')
 #config.Data.inputDataset = 'Run2016B/SinglePhoton/RECO/PromptReco-v2'
 config.Data.inputDataset = '/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM'
