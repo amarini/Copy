@@ -14,7 +14,7 @@ parser.add_option("-v","--verbose",dest="verbose",type="int",help="Verbose [%def
 opts, args=parser.parse_args()
 
 if opts.files[0] == 'PSET':
-    from do_nothing_cfg import process.source.fileNames as fileNames
+    from do_nothing_cfg import fileNames
     opts.files=[f if 'root://' in f else 'root://xrootd-cms.infn.it//' + f for f in fileNames]
     print ("PSET changed file list to: ",','.join(opts.files))
 

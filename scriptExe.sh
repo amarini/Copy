@@ -21,6 +21,6 @@ MYCMSSW=CMSSW_10_6_18
 
 echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
 #cmsRun -j step1.log step1_cfg.py jobNum=$1 $2
-python copyNano.py -f 'PSET' -o 'nano.root' -s 'FatJet_pt[0]>500' && { mv -v FrameworkJobReport_ok.xml  FrameworkJobReport.xml }
+python copyNano.py -f 'PSET' -o 'nano.root' -s 'FatJet_pt[0]>200' && { mv -v FrameworkJobReport_ok.xml  FrameworkJobReport.xml }
 
 echo "================= CMSRUN finished ====================" | tee -a job.log

@@ -8,6 +8,9 @@ process.source = cms.Source ("PoolSource",
                     ])
 			  )
 
+# copy in global variable
+fileNames = process.source.fileNames[:]
+
 ##from subprocess import call
 ##
 ##cmd=["python","copyNano.py"]
