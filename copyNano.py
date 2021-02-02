@@ -22,7 +22,7 @@ if opts.files[0] == 'JSON':
     jobNum = int(opts.files[1])
     #job_input_file_list_12
     import json
-    with 'job_input_file_list_%d.txt'%jobNum open as fin:
+    with open('job_input_file_list_%d.txt'%jobNum) as fin:
         data=json.load(fin)
         opts.files=[f if 'root://' in f else 'root://xrootd-cms.infn.it//' + f for f in data]
     print ("JSON 'job_input_file_list_%d.txt' changed file list to: "%jobNum,','.join(opts.files))
