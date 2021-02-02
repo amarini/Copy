@@ -1,7 +1,7 @@
-from WMCore.Configuration import Configuration
+from CRABClient.UserUtilities import config
 
 config = config()
-config.General.requestName = 'crab_projects'
+config.General.requestName = 'crab_TT2016'
 config.General.workArea = 'crab_copyNano'
 config.General.transferLogs = False
 config.General.transferOutputs = True
