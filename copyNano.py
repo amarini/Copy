@@ -44,12 +44,6 @@ for idx,fname in enumerate(opts.files):
     if opts.skim != "":
         print ("Copied:",t3.GetEntries(),"/",fIn.Get("Events").GetEntries(),"entries")
     
-    # Additional metadata
-    tn1 = ROOT.TNamed("CopyNano_Input",",".join(opts.files))
-    tn2 = ROOT.TNamed("CopyNano_Selection",opts.skim)
-
-    tn1.Write()
-    tn2.Write()
 
     fOut.Write()
     fOut.Close()
@@ -63,9 +57,17 @@ from subprocess import call
 # use haddnano
 st=call(["python","haddnano.py",opts.output] +  glob("tmp*_"+opts.output))
 
-if st !=0: 
-    raise RuntimeError("Unable to merge output trees. Found file: "+','.join(glob("tmp*_"+opts.output) ))
+if st !=0:  raise RuntimeError("Unable to merge output trees. Found file: "+','.join(glob("tmp*_"+opts.output) ))
 
+fNano=ROOT.TFile.Open(opts.output,"UPDATE")
+# Additional metadata
+tn1 = ROOT.TNamed("CopyNano_Input",",".join(opts.files))
+tn2 = ROOT.TNamed("CopyNano_Selection",opts.skim)
+
+tn1.Write()
+tn2.Write()
+
+fNano.Close()
 
 #RunTree
 #LumiTree
