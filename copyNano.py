@@ -7,7 +7,7 @@ from optparse import OptionParser
 parser=OptionParser()
 
 #parser.add_option()
-parser.add_option("-f","--file",dest="files",type="string",help="Input file",default=[],action='append')
+parser.add_option("-f","--file",dest="files",type="string",help="Input file. Specials: PSET, JSON num",default=[],action='append')
 parser.add_option("-o","--output",dest="output",type="string",help="Output file [%default]",default="nano.root")
 parser.add_option("-s","--skim",dest="skim",type="string",help="Skim",default="")
 parser.add_option("-v","--verbose",dest="verbose",type="int",help="Verbose [%default]",default=1)
@@ -58,9 +58,10 @@ for idx,fname in enumerate(opts.files):
 # merge
 from glob import glob
 from subprocess import call
-st=call(
-        ["hadd",opts.output] + glob("tmp*_"+opts.output)
-        )
+
+#st=call(["hadd",opts.output] + glob("tmp*_"+opts.output))
+# use haddnano
+st=call(["python","haddnano.py",opts.output] +  glob("tmp*_"+opts.output))
 
 if st !=0: 
     raise RuntimeError("Unable to merge output trees. Found file: "+','.join(glob("tmp*_"+opts.output) ))
