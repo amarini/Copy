@@ -25,3 +25,15 @@ config.Data.splitting = 'FileBased'
 #config.Data.outLFNDirBase = '/store/user/amarini/Test/'
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/2016/'
 config.Site.storageSite = 'T2_CH_CERN'
+
+do='xxx'
+year=2016
+if do!='xxx' :
+    import re
+    #config.General.requestName = 'crab_TT2016'
+    if 'UL18' in do: year = 2018
+    if 'UL17' in do: year = 2017
+    if 'UL16' in do: year = 2016
+    config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/%d/' % year
+    config.General.requestName = re.sub('-','_',do.split('/')[0]) + "_%d"%year
+    config.Data.inputDataset = do
