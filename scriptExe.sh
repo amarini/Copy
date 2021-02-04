@@ -25,7 +25,7 @@ tar -xzf input_files.tar.gz
 ls  -ltr 
 
 echo "================= Running CopyNano ====================" | tee -a job.log
-python copyNano.py -f 'JSON' -f "$1" -o 'nano.root' -s 'FatJet_pt[0]>200 || MET_pt > 200' && { mv -v FrameworkJobReport_ok.xml  FrameworkJobReport.xml ; }
+python copyNano.py -f 'JSON' -f "$1" -o 'nano.root' -s 'nFatJet >0 || MET_pt > 200' && { mv -v FrameworkJobReport_ok.xml  FrameworkJobReport.xml ; }
 # use the tweak pset to figure it out
 #python copyNano.py -f 'PSET' -o 'nano.root' -s 'FatJet_pt[0]>200' && { mv -v FrameworkJobReport_ok.xml  FrameworkJobReport.xml ; }
 
