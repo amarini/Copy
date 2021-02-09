@@ -18,7 +18,7 @@ config.section_('Data')
 config.Data.inputDataset = '/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM'
 config.Data.publication = True
 
-config.Data.unitsPerJob = 10
+config.Data.unitsPerJob = 1
 config.Data.totalUnits = -1
 config.Data.splitting = 'FileBased'
 
@@ -35,5 +35,5 @@ if do!='xxx' :
     if 'UL17' in do: year = 2017
     if 'UL16' in do: year = 2016
     config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/%d/' % year
-    config.General.requestName = re.sub('-','_',do.split('/')[0]) + "_%d"%year
+    config.General.requestName = re.sub('-','_',do.split('/')[1]) + "_%d"%year
     config.Data.inputDataset = do
