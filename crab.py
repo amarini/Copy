@@ -31,9 +31,15 @@ year=2016
 if do!='xxx' :
     import re
     #config.General.requestName = 'crab_TT2016'
-    if 'UL18' in do: year = 2018
+    if 'UL18' in do: year = 2018 ## mc
     if 'UL17' in do: year = 2017
     if 'UL16' in do: year = 2016
+    if 'UL2018' in do: year = 2018 ##data
+    if 'UL2017' in do: year = 2017
+    if 'UL2016' in do: year = 2016
     config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/%d/' % year
-    config.General.requestName = re.sub('-','_',do.split('/')[1]) + "_%d"%year
+    extra=''
+    if 'Run2016' in do or 'Run2017' in do or 'Run2018' in do:
+        extra='_'+ re.sub('[_,-]$','',re.sub('UL.*','',do.split('/')[2]))
+    config.General.requestName = re.sub('-','_',do.split('/')[1]) + "_%d"%year + extra
     config.Data.inputDataset = do
