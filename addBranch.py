@@ -11,6 +11,7 @@ parser.add_option("-u","--output",dest="output",type="string",help="Output file 
 parser.add_option("-a","--add",dest="names",type="string",help="add weight name,pos",default=[],action='append')
 parser.add_option("","--minME",type="string",help="figure out names from min and max",default=None)
 parser.add_option("","--maxME",type="string",help="figure out names from min and max",default=None)
+parser.add_option("-x","--xrdcp",dest="xrdcp",action="store_true",help="Use first xrdcp",default=False)
 parser.add_option("-v","--verbose",dest="verbose",type="int",help="Verbose [%default]",default=1)
 opts, args=parser.parse_args()
 
@@ -48,6 +49,10 @@ weights={} #->run,lumi,evt  -> [values]
 
 if opts.minME and len(names)>0: raise ValueError("Cannot specify minME and names simultaneously")
 
+if opts.xrdcp:
+    tmp=check_output(["mktemp","-d"]).replace('\n','')
+    print ("temporary directory is",tmp)
+
 for ifile,fnamenano in enumerate(opts.files):
     if fnamenano =='PARENT':
         parents=opts.parents
@@ -63,13 +68,23 @@ for ifile,fnamenano in enumerate(opts.files):
         parents = [ 'root://xrootd-cms.infn.it//' + x for x in out.split() if '/store/' in x ]
     print ("-> Runnig on ",fnamenano,"parents",','.join(parents))
     for ifile2,fname in enumerate(parents):
+        if opts.xrdcp:
+            ## copy and swap fname
+            cmd=['xrdcp',fname,tmp+"/"+fname.split('/')[-1] ]
+            st=call(cmd)
+            if st !=0:  
+                print ("DEBUG","CMD",' '.join(cmd))
+                print ("DEBUG","status",st)
+                raise RuntimeError("Unable to transfer file "+fname+" with xrdcp" )
+            # now use local version
+            fname=tmp+"/"+fname.split('/')[-1]
         print ("->Opening file",fname,"parent",ifile2,"/",len(parents), "of", fnamenano, ifile,"/",len(opts.files))
         events = Events(fname)
         lhe,lheLabel = Handle("LHEEventProduct"),"externalLHEProducer"
 
         for iev,event in enumerate(events):
-            if event.eventAuxiliary().event() % 100 ==1:
-                print ("\n-> Event %d: run %6d, lumi %4d, event %12d" % (iev,event.eventAuxiliary().run(), event.eventAuxiliary().luminosityBlock(),event.eventAuxiliary().event()))
+            if event.eventAuxiliary().event() % 1000 ==1:
+                print ("-> Event %d: run %6d, lumi %4d, event %12d" % (iev,event.eventAuxiliary().run(), event.eventAuxiliary().luminosityBlock(),event.eventAuxiliary().event()))
             event.getByLabel(lheLabel, lhe)
 
             hepeup = lhe.product().hepeup()
@@ -86,33 +101,38 @@ for ifile,fnamenano in enumerate(opts.files):
 
             weights[ (event.eventAuxiliary().run(), event.eventAuxiliary().luminosityBlock(),event.eventAuxiliary().event() ) ] = [ lhe.product().weights()[p].wgt for n,p in names]
             if not descr: descr = [ lhe.product().weights()[p].id for n,p in names ] 
+        if opts.xrdcp: #clean
+            cmd=['rm','-v',fname]
+            st=call(cmd)
 
 # Open Output in R/W and add a new branch
 fout=ROOT.TFile.Open(opts.output,"UPDATE")
 tree = fout.Get("Events")
-values = array('d',[0. for i in names])
+values = []
 branches=[]
-for n,p in names:
-    b=tree.Branch(n,values[p],n+"/D")
-    if descr: b.SetTitle(descr[p])
+for i,(n,p) in enumerate(names):
+    values.append( array('d',[0.]) )
+    b=tree.Branch(n,values[i],n+"/D")
+    if descr: b.SetTitle(descr[i])
     branches.append(b)
 
 ## loop over entries
 for i in range(0,tree.GetEntries()):
     tree.GetEntry(i)
     w = (tree.run, tree.luminosityBlock, tree.event)
-    for n,p in names:
-        values[p] = weights[w][p] #if w in weights else -99. ### Raise Exception
-        branches[p].Fill()
+    for i,(n,p) in enumerate(names):
+        values[i][0] = weights[w][i] #if w in weights else -99. ### Raise Exception
+        branches[i].Fill()
 tree.Write("",ROOT.TObject.kOverwrite);
 
 # save sums
 branches2=[]
-values_sums=array('d',[0. for i in names])
+values_sums=[] 
 run_tree = fout.Get("Runs")
-for n,p in names:
-    b=run_tree.Branch("sum_"+n,values_sums[p],"sum_"+n+"/D")
-    values_sums[p] = np.sum([weights[w][p] for w in weights])
+for i,(n,p) in enumerate(names):
+    values_sums.append( array('d',[0.]))
+    b=run_tree.Branch("sum_"+n,values_sums[i],"sum_"+n+"/D")
+    values_sums[i][0] = np.sum([weights[w][i] for w in weights])
     if descr: b.SetTitle("sum of weights")
     b.Fill()
     branches2.append(b)
