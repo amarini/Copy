@@ -2,6 +2,10 @@
 
 DEST=/eos/cms/store/user/amarini/nanoaqgc
 DATASET=/WPJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM
+
+[ -n "${1}" ] && { export DATASET="$1" ; echo "DATASET is $DATASET"; } 
+[ -n "${2}" ] && { export DEST="$2" ; echo "DEST is $DEST"; } 
+
 DNAME=$(echo -n $DATASET | cut -d'/' -f 2)
 mkdir -p $DEST/$DNAME
 
