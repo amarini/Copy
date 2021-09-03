@@ -20,6 +20,7 @@ for f in $(dasgoclient -query "file dataset=$DATASET" ); do
     xrdcp "root://xrootd-cms.infn.it//$f" $TMPDIR/ ; 
     python addBranch.py  -f "root://xrootd-cms.infn.it//$f" -u $TMPDIR/${f##*/} --minME "fs0_0p00" --maxME "ft9_2p50"  --xrdcp
 
+    [ "!$" == "0" ] || { echo "ERROR in addBranch" ; continue; }
     mv -v $TMPDIR/${f##*/} $DEST/$DNAME/
     #-a branch,1 
 done
