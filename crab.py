@@ -28,6 +28,7 @@ config.Site.storageSite = 'T2_CH_CERN'
 
 do='xxx'
 year=2016
+suffix=""
 if do!='xxx' :
     import re
     #config.General.requestName = 'crab_TT2016'
@@ -37,7 +38,9 @@ if do!='xxx' :
     if 'UL2018' in do: year = 2018 ##data
     if 'UL2017' in do: year = 2017
     if 'UL2016' in do: year = 2016
-    config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/%d/' % year
+    if 'preVFP' in do: suffix='preVFP'
+    if 'postVFP' in do: suffix='postVFP'
+    config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/%d%s/' % (year,suffix)
     extra=''
     if 'Run2016' in do or 'Run2017' in do or 'Run2018' in do:
         extra='_'+ re.sub('[_,-]$','',re.sub('UL.*','',do.split('/')[2]))
