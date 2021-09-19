@@ -1,8 +1,10 @@
 #!/bin/bash
 #SRC=/eos/cms/store/group/phys_higgs/cmshmm/amarini/nano/2018/TTTo2L2Nu_SuperSet
 #DEST=/eos/cms/store/group/phys_higgs/cmshmm/amarini/nano/2018/TTTo2L2Nu_SuperSet_SKIM
-SRC=/eos/cms/store/group/phys_higgs/cmshmm/amarini/nano/2018/TTToHadronic_SuperSet
-DEST=/eos/cms/store/group/phys_higgs/cmshmm/amarini/nano/2018/TTToHadronic_SuperSet_SKIM
+#SRC=/eos/cms/store/group/phys_higgs/cmshmm/amarini/nano/2018/TTToHadronic_SuperSet
+#DEST=/eos/cms/store/group/phys_higgs/cmshmm/amarini/nano/2018/TTToHadronic_SuperSet_SKIM
+SRC=/eos/cms/store/group/phys_higgs/cmshmm/amarini/nano/2018/TTToSemiLeptonic_SuperSet
+DEST=/eos/cms/store/group/phys_higgs/cmshmm/amarini/nano/2018/TTToSemiLeptonic_SuperSet_SKIM
 
 
 TMP=/tmp/$USER/copyNano_tmp.root

@@ -1,0 +1,47 @@
+requirements = (OpSysAndVer =?= "CentOS7")
+## each CPU gets 2gb of RAM (soft).
+RequestCpus = 8
+logdir=log
+log = $(logdir)/$(logname).log
+output = $(logdir)/$(logname).out
+error = $(logdir)/$(logname).err
+executable = $(filename)
+#+JobFlavour = "tomorrow"
++JobFlavour = "testmatch"
++AccountingGroup = "group_u_CMST3.all"
+JobBatchName = "nanoaqgc"
+arguments = $(dataset)
+filename=nano_condor.sh
+
+#queue input, arguments from (
+#  file1, -a -b 26
+#   file2, -c -d 92
+#    )
+
+#/WMJJWMJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM, WMJJWMJJjj_mc2016
+#
+queue dataset, logname from (
+/WMJJWMJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM, WMJJWMJJjj_mc2017
+/WMJJWMJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM, WMJJWMJJjj_mc2018
+/WMJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM, WMJJZJJjj_mc2016
+/WMJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM, WMJJZJJjj_mc2017
+/WMJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM, WMJJZJJjj_mc2018
+/WPJJWMJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM, WPJJWMJJjj_mc2016
+/WPJJWMJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM, WPJJWMJJjj_mc2017
+/WPJJWMJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM, WPJJWMJJjj_mc2018
+/WPJJWPJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM, WPJJWPJJjj_mc2016
+/WPJJWPJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM, WPJJWPJJjj_mc2017
+/WPJJWPJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM, WPJJWPJJjj_mc2018
+/WPJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM, WPJJZJJjj_mc2016
+/WPJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM, WPJJZJJjj_mc2017
+/WPJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM, WPJJZJJjj_mc2018
+/ZBBZJJnoBjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM, ZBBZJJnoBjj_mc2016
+/ZBBZJJnoBjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM, ZBBZJJnoBjj_mc2017
+/ZBBZJJnoBjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM, ZBBZJJnoBjj_mc2018
+/ZJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM, ZJJZJJjj_mc2016
+/ZJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM, ZJJZJJjj_mc2017
+/ZJJZJJjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM, ZJJZJJjj_mc2018
+/ZNuNuZJJnoBjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL16NanoAODv2-106X_mcRun2_asymptotic_v15-v1/NANOAODSIM, ZNuNuZJJnoBjj_mc2016
+/ZNuNuZJJnoBjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM, ZNuNuZJJnoBjj_mc2017
+/ZNuNuZJJnoBjj_EWK_LO_NPle1_aQGC_TuneCP5_13TeV-madgraph-pythia8/RunIISummer19UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM, ZNuNuZJJnoBjj_mc2018
+)
