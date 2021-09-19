@@ -11,6 +11,11 @@ BASE=$PWD
 ## copy  proxy
 export X509_USER_PROXY=$PWD/x509up_u$(id -u)
 
+voms-proxy-info
+
+## use my dasgoclient
+export PATH=$PWD:$PATH
+
 echo ">Doing dataset $dataset" | tee -a log_global.txt; 
 ./nanoaqgc.sh ${dataset}
 echo ">Done dataset $dataset" | tee -a log_global.txt; 

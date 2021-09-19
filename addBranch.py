@@ -61,6 +61,7 @@ for ifile,fnamenano in enumerate(opts.files):
         fname_logical=fnamenano[fnamenano.find('/store'):]  
         #find parent
         cmd="dasgoclient -query 'parent file=%s'"%fname_logical
+        print ("-> Parents fetch with command: "+ cmd)
         out=check_output(cmd,shell=True)
 
         #print ("DEBUG","CMD",cmd)

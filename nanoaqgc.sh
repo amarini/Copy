@@ -23,8 +23,8 @@ echo "Using TMPDIR $TMPDIR"
 ## persistent temp for miniaod
 mkdir -p /eos/cms/store/cmst3/user/amarini/temp/$DNAME/$YEAR
 
-echo "copying dataset in $DEST"
-for f in $(dasgoclient -query "file dataset=$DATASET" ); do
+echo "copying dataset in $DEST. Quearying files with command dasgoclient -query=\"file dataset=$DATASET\""
+for f in $(dasgoclient -query="file dataset=$DATASET" ); do
     #[ -f $DEST/$DNAME/${f##*/} ]  && { echo "skipping transfer for $f"; } || { xrdcp "root://xrootd-cms.infn.it//$f" $DEST/$DNAME/ ; }
     #python addBranch.py  -f "root://xrootd-cms.infn.it//$f" -u $DEST/$DNAME/${f##*/} --minME "fs0_0p00" --maxME "ft9_2p50"  --xrdcp
 
