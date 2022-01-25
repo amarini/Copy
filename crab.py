@@ -23,7 +23,8 @@ config.Data.totalUnits = -1
 config.Data.splitting = 'FileBased'
 
 #config.Data.outLFNDirBase = '/store/user/amarini/Test/'
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/2016/'
+#config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/2016/'
+config.Data.outLFNDirBase = '/store/group/phys_smp/amarini/nano/2016/'
 config.Site.storageSite = 'T2_CH_CERN'
 
 do='xxx'
@@ -40,9 +41,10 @@ if do!='xxx' :
     if 'UL2016' in do: year = 2016
     if 'preVFP' in do: suffix='preVFP'
     if 'postVFP' in do: suffix='postVFP'
-    config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/%d%s/' % (year,suffix)
+    #config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/nano/%d%s/' % (year,suffix)
+    config.Data.outLFNDirBase = '/store/group/phys_smp/amarini/nano/%d%s/' % (year,suffix)
     extra=''
     if 'Run2016' in do or 'Run2017' in do or 'Run2018' in do:
         extra='_'+ re.sub('[_,-]$','',re.sub('UL.*','',do.split('/')[2]))
-    config.General.requestName = re.sub('-','_',do.split('/')[1]) + "_%d"%year + extra
+    config.General.requestName = re.sub('-','_',do.split('/')[1]) + "_%d"%year +suffix+ extra
     config.Data.inputDataset = do

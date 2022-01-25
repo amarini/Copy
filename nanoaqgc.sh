@@ -29,7 +29,8 @@ for f in $(dasgoclient -query="file dataset=$DATASET" ); do
     #python addBranch.py  -f "root://xrootd-cms.infn.it//$f" -u $DEST/$DNAME/${f##*/} --minME "fs0_0p00" --maxME "ft9_2p50"  --xrdcp
 
     xrdcp "root://xrootd-cms.infn.it//$f" $TMPDIR/ ; 
-    TIME="ch ${ch}\nElapsed %e\nUser %U\nSys %S\nMem %M" time  python addBranch.py  -f "root://xrootd-cms.infn.it//$f" -u $TMPDIR/${f##*/} --minME "fs0_m200p00" --maxME "ft9_20p00"  --xrdcp --persistent_temp /eos/cms/store/cmst3/user/amarini/temp/$DNAME/$YEAR
+    TIME="ch ${ch}\nElapsed %e\nUser %U\nSys %S\nMem %M" time  python addBranch.py  -f "root://xrootd-cms.infn.it//$f" -u $TMPDIR/${f##*/} --minME "fs0_m30p00" --maxME "ft9_20p00"  --xrdcp --persistent_temp /eos/cms/store/cmst3/user/amarini/temp/$DNAME/$YEAR
+    ### UL python addBranch.py  -f 'PARENT' -u step7.root -p step6.root --minME "fs0_m30p00" --maxME "ft9_20p00"
 
     [ "$?" == "0" ] || { echo "ERROR in addBranch" ; echo "$f" >>failed_file.txt ; continue; }
 
