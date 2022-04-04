@@ -46,5 +46,9 @@ if do!='xxx' :
     extra=''
     if 'Run2016' in do or 'Run2017' in do or 'Run2018' in do:
         extra='_'+ re.sub('[_,-]$','',re.sub('UL.*','',do.split('/')[2]))
+    if 'ext1' in do: 
+        extra +="_ext1" ## extensions
+    if 'ext2' in do: 
+        extra +="_ext2"
     config.General.requestName = re.sub('-','_',do.split('/')[1]) + "_%d"%year +suffix+ extra
     config.Data.inputDataset = do
